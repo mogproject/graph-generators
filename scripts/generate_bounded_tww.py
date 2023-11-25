@@ -70,9 +70,8 @@ def main(args):
 
     rand = Random(args.seed)
 
-    for ln in [6]:
-        n = 10 ** ln
-        for t in range(10):
+    for n in [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000]:
+        for t in range(3):
             path = os.path.join(DATA_DIR, f'btww_n{n:07d}_t{t:02d}.gr')
 
             k = int(math.floor(math.log2(n) ** 2))
