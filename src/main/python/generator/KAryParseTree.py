@@ -55,22 +55,22 @@ class KAryParseTree:
 
         # compute all vertex ranges
         for i in self.internal_nodes_bottom_up():
-            bounds[i] = (bounds[self._left(i)][0], bounds[self._right(i)][1])
+            bounds[i] = (bounds[self.left(i)][0], bounds[self.right(i)][1])
 
         self.bounds = bounds
 
     def __len__(self) -> int:
         return self.num_nodes
 
-    def _left(self, i: int) -> int:
+    def left(self, i: int) -> int:
         """Returns the node id of the leftmost child."""
         assert 0 <= i < self.num_nodes - self.num_leaves
         return i * self.k + 1
 
-    def _right(self, i: int) -> int:
+    def right(self, i: int) -> int:
         """Returns the node id of the rightmost child"""
         assert 0 <= i < self.num_nodes - self.num_leaves
-        return min(self.num_nodes, self._left(i) + self.k) - 1
+        return min(self.num_nodes, self.left(i) + self.k) - 1
 
     def internal_nodes_bottom_up(self) -> range:
         return range(self.num_nodes - self.num_leaves - 1, -1, -1)
@@ -78,3 +78,7 @@ class KAryParseTree:
     def vertex_range(self, i: int) -> range:
         assert 0 <= i < self.num_nodes
         return range(self.bounds[i][0], self.bounds[i][1])
+
+    def children(self, i: int) -> range:
+        assert 0 <= i < self.num_nodes
+        return range(self.left(i), self.right(i) + 1)
