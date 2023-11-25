@@ -4,6 +4,7 @@ from itertools import combinations, product
 import networkx as nx
 from generator.KAryParseTree import KAryParseTree
 
+
 def modular_width_bounded_graph(rand: Random, n: int, mw: int, p: float) -> nx.Graph:
     t = KAryParseTree(mw, n)
     G = nx.empty_graph(n)
