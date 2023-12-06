@@ -82,3 +82,7 @@ class KAryParseTree:
     def children(self, i: int) -> range:
         assert 0 <= i < self.num_nodes
         return range(self.left(i), self.right(i) + 1)
+
+    def num_children(self, i: int) -> int:
+        assert 0 <= i < self.num_nodes
+        return self.right(i) + 1 - self.left(i)
