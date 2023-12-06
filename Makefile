@@ -20,4 +20,7 @@ test-py:
 	mypy "$(SRC_PY)"
 	$(PYTHON) -m pytest -x $(PYTEST_OPTS) $(TEST_PY)
 
-.PHONY: test test-py
+lab:
+	jupyter-lab
+
+.PHONY: test test-py lab
