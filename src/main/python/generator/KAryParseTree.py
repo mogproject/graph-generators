@@ -59,8 +59,21 @@ class KAryParseTree:
 
         self.bounds = bounds
 
+        # compute node range for each leevel
+        j = self.root
+        levels = []
+        while not self.is_leaf(j):
+            nxt = self.left(j)
+            levels += [range(j, nxt)]
+            j = self.left(j)
+        levels += [range(j, num_nodes)]
+        self.levels = levels
+
     def __len__(self) -> int:
         return self.num_nodes
+
+    def is_leaf(self, i: int) -> bool:
+        return i >= self.num_nodes - self.num_leaves
 
     def left(self, i: int) -> int:
         """Returns the node id of the leftmost child."""
@@ -74,6 +87,14 @@ class KAryParseTree:
 
     def internal_nodes_bottom_up(self) -> range:
         return range(self.num_nodes - self.num_leaves - 1, -1, -1)
+
+    def nodes_by_level(self, level: int) -> range:
+        if level >= len(self.levels):
+            return range(0, 0)
+        return self.levels[level]
+
+    def leaves(self) -> range:
+        return range(self.num_nodes - self.num_leaves, self.num_nodes)
 
     def vertex_range(self, i: int) -> range:
         assert 0 <= i < self.num_nodes
